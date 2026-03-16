@@ -1,0 +1,60 @@
+# SSS-TT Fine-tuning Configuration (Section 3.9)
+
+# ---------- Data ----------
+data:
+  data_dir: /data/icope
+  T: 32
+  batch_size: 32                         # 16 per GPU × 2 GPUs
+  num_workers: 4
+  modalities:
+    - thermal
+    - physiology
+
+# ---------- Model ----------
+model:
+  img_size: 224
+  patch_size: 16
+  embed_dim: 768
+  vit_depth: 12
+  vit_heads: 12
+  tcn_layers: 4
+  tcn_kernel: 3
+  caf_heads: 4
+  num_pain_levels: 4
+  dropout: 0.3
+  missing_prob: 0.3                      # modality dropout rate during training
+
+# ---------- Training ----------
+training:
+  mae_checkpoint: checkpoints/mae/best.pth
+  epochs: 50
+  warmup_epochs: 10
+  freeze_vit_epochs: 10
+  lr: 1.0e-4
+  lr_min: 1.0e-6
+  lr_vit_unfreeze: 1.0e-5               # lower LR for ViT after unfreeze
+  weight_decay: 0.05
+  grad_clip: 1.0
+  label_smoothing: 0.1                  # for cross-entropy (not CORAL)
+  seed: 42
+
+# ---------- Loss ----------
+loss:
+  type: coral                           # coral | crossentropy | mse | emd
+  lambda_temporal: 0.1
+  lambda_mae: 0.5
+  mae_active_epochs: 10                 # L_MAE only active first 10 epochs
+
+# ---------- Cross-validation ----------
+cross_val:
+  n_folds: 5
+  subject_level_split: true
+  stratified_by:
+    - pain_level
+    - gestational_age
+    - procedure_type
+
+# ---------- Output ----------
+output:
+  output_dir: checkpoints/sss-tt
+  best_metric: qwk

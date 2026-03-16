@@ -1,0 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# IDE
+.vscode/
+.idea/
+
+# Data (never commit patient data)
+data/
+*.mp4
+*.avi
+*.npy
+
+# Checkpoints (large files)
+checkpoints/
+*.pth
+*.pt
+*.onnx
+*.trt
+
+# Results and logs
+results/
+*.log
+*.csv
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# OS
+.DS_Store
+Thumbs.db

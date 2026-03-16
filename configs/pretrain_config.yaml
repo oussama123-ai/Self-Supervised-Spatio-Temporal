@@ -1,0 +1,40 @@
+# MAE Pretraining Configuration (Section 3.5)
+# Matches paper: 800 epochs, AdamW, cosine schedule, 75% masking
+
+# ---------- Data ----------
+data:
+  data_dir: /data/unlabeled_nicu          # Hospital Sites B+C
+  T: 32                                   # frames per clip (single frame used per step)
+  num_workers: 4
+
+# ---------- Model ----------
+model:
+  img_size: 224
+  patch_size: 16
+  in_channels: 3
+  encoder_embed_dim: 768
+  encoder_depth: 12
+  encoder_num_heads: 12
+  decoder_embed_dim: 512
+  decoder_depth: 8
+  decoder_num_heads: 16
+  mask_ratio: 0.75
+  norm_pix_loss: true
+
+# ---------- Training ----------
+training:
+  epochs: 800
+  warmup_epochs: 40
+  batch_size: 16                         # per GPU; effective=128 with 8 GPUs
+  lr: 1.5e-4
+  lr_min: 1e-6
+  weight_decay: 0.05
+  betas: [0.9, 0.95]
+  grad_clip: 1.0
+  gpus: 8
+
+# ---------- Logging ----------
+output:
+  output_dir: checkpoints/mae
+  save_every: 50
+  log_file: pretrain_log.csv
