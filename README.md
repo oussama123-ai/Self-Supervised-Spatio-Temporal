@@ -238,20 +238,6 @@ python scripts/edge_inference.py \
 
 ---
 
-## 📄 Citation
-
-```bibtex
-@article{elothmani2025ssstt,
-  title={SSS-TT: Self-Supervised Sequential Spatio-Temporal Transformers 
-         with Adaptive Multimodal Fusion for Automated Neonatal Pain Assessment},
-  author={El Othmani, Oussama and Ouersighni, Riadh},
-  journal={arXiv preprint},
-  year={2025}
-}
-```
-
----
-
 ## 📜 License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
